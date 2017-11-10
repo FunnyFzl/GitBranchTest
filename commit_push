@@ -90,8 +90,11 @@ function startPushCode(){
 
     git push origin "$branchString"
 
+    git checkout master
+
 }
 
+git checkout master
 
 getCommitLog
 
