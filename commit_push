@@ -1,0 +1,123 @@
+#!/bin/bash
+
+readonly BRANCH_ONE_MASTER="master"
+readonly BRANCH_TWO_AOTULAYOUT="Re_AotuLayout"
+readonly BRANCH_THREE_RECONFIGURATION="Code_Reconfiguration"
+readonly BRANCH_FOUR_NEW_REQUIREMENT="New_Requirement"
+
+
+function getCommitLog(){
+
+    if [[ -f commit_log ]]; then
+
+        commit_log=`cat commit_log`
+
+        logLength=${#commit_log}
+
+        if [[ -z "$commit_log" ]]; then
+
+           echo "请输入commitlog："
+
+           read commit_log
+
+        fi
+
+    else 
+
+        echo "commit_log文件不存在，请手动输入commitlog："
+
+        read commit_log
+
+    fi
+    
+}
+
+
+function startPushCode(){
+
+    echo "please select which branch that you will push(just number is Ok )
+    1、BRANCH_ONE_MASTER（master分支）;
+    2、BRANCH_TWO_AOTULAYOUT（aotulayout分支）;
+    3、BRANCH_THREE_RECONFIGURATION(功能性重构分支)；
+    4、BRANCH_FOUR_NEW_REQUIREMENT（新需求分支）"
+
+    read branchNumber
+
+    # if [[ $branchNumber=1 ]]; then
+
+    #     # echo "confirm your select branch (master), general you nead checkout a new branch
+    #     #       \n (Y/n)?"
+
+    #     # read confirm
+
+    #     # if [[ $confirm == "Y" ]]; then
+
+    #     #     branchString="$BRANCH_ONE_MASTER"
+
+    #     #     echo "start push code to master branch"
+            
+    #     # fi
+
+
+    #     # if [[ $confirm == "n" || $confirm != "Y" || $confirm != "n" ]]; then
+
+    #     #     echo "---------------------------"
+    #     #     startPushCode
+
+    #     #     return
+    #     # fi
+    # fi
+
+
+    if [[ $branchNumber=2 ]]; then
+        branchString="$BRANCH_TWO_AOTULAYOUT"
+    fi
+
+    if [[ $branchNumber=3 ]]; then
+        branchString="$BRANCH_THREE_RECONFIGURATION"
+    fi
+
+    if [[ $branchNumber=4 ]]; then
+        branchString="$BRANCH_FOUR_NEW_REQUIREMENT"
+    fi
+
+
+    git checkout -b "$branchString"
+ 
+    git add .
+
+    git commit -m "$commit_log"
+
+    git push origin "$branchString"
+
+}
+
+
+getCommitLog
+
+echo "获取commitlog:${commit_log}
+is your confirm changelog (Y/n)?"
+
+read isMyChangeLog
+
+if [[ $isMyChangeLog == "Y" ]]; then
+    
+    echo "开始push 代码"
+
+    startPushCode
+
+else
+
+    echo "既然不是你想要的chengelog，那么请手动输入commitlog："
+
+    read commit_log
+
+    echo "获取commitlog:${commit_log}"
+
+    startPushCode
+
+fi
+
+
+exit # 正确终止脚本的方式。
+     # 不带参数的exit返回上一条指令的运行结果。
