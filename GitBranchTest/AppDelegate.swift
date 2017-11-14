@@ -16,6 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        //i u 电话问候都会额外丢东部为 u 邓杨文库王顗个i 我不读英文歌的
+        //都可以各地王顗个逗我ID改为 u 遇到过都苦厄王顗的各位预定故事读英文歌的
         return true
     }
 
